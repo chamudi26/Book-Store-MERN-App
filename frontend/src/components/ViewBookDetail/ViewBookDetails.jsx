@@ -3,6 +3,8 @@ import axios from "axios";
 import Loader from '../Loader/Loader';
 import { useParams } from 'react-router-dom';
 import{GrLanguage} from"react-icons/gr";
+import { FaHeart } from "react-icons/fa6";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 const ViewDataDetails = () => {
@@ -20,11 +22,15 @@ const ViewDataDetails = () => {
   },[ ]);
   return (
    <>
-    {Data && (<div className='px-4 md:px-8 py-8 bg-zinc-900 flex gap-8 flex flex-col md:flex-row'>
-        <div className='bg-zinc-800 rounded p-4 h-[60vh] lg:h-[88vh] w-full lg:w-3/6 flex  items-center justify-center '>
+    {Data && (<div className='px-4 md:px-8 py-8 bg-zinc-900 flex gap-8 flex flex-col md:flex-row gap-8'>
+        <div className='bg-zinc-800 rounded px-6 p-12 w-full lg:w-3/6 flex   justify-around'>
         {" "}
         
-        <img src={Data.url} alt='/' className='h-[50vh] lg:h-[70vh] rounded '/>
+        <img src={Data.url} alt='/' className='h-[50vh] lg:h-[70vh] rounded mt-4'/>
+        <div className='flex md:flex-col mt-5'>
+            <button className='bg-white rounded-full text-2xl p-2 '><FaHeart /></button>
+            <button className='bg-white rounded-full text-2xl p-2 mt-6'><FaShoppingCart /></button>
+        </div>
         </div>
         <div className='p-4 w-full lg:w-3/6 mt-10'>
         <h1 className='text-4xl text-zinc-300 font-semibold  lg:text-left'>{Data.title}</h1>
