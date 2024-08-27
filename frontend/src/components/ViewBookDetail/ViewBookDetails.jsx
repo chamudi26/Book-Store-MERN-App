@@ -5,11 +5,17 @@ import { useParams } from 'react-router-dom';
 import{GrLanguage} from"react-icons/gr";
 import { FaHeart } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
-
+import { useSelector } from 'react-redux';
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 const ViewDataDetails = () => {
     const {id}=useParams();
     const [Data,setData]=useState({ url: '' });
+    const isLoggedIn= useSelector((state)=>state.auth.isLoggedIn);
+    const role= useSelector((state)=>state.auth.role);
+    console.log(isLoggedIn);
+    console.log(isLoggedIn);
   useEffect(()=>{
       const fetch=async()=>{
           const response=await axios.get(
@@ -22,14 +28,25 @@ const ViewDataDetails = () => {
   },[ ]);
   return (
    <>
-    {Data && (<div className='px-4 md:px-8 py-8 bg-zinc-900 flex gap-8 flex flex-col md:flex-row gap-8'>
-        <div className='bg-zinc-800 rounded px-6 p-12 w-full lg:w-3/6 flex   justify-around'>
+    {Data && (<div className='px-4 md:px-8 py-8 bg-zinc-900 flex gap-8 flex flex-col lg:flex-row gap-8 items-start'>
+        <div className='px-6  w-full lg:w-3/6 '>
         {" "}
         
-        <img src={Data.url} alt='/' className='h-[50vh] lg:h-[70vh] rounded mt-4'/>
-        <div className='flex md:flex-col mt-5'>
-            <button className='bg-white rounded-full text-2xl p-2 '><FaHeart /></button>
-            <button className='bg-white rounded-full text-2xl p-2 mt-6'><FaShoppingCart /></button>
+        <div className='flex flex-col lg:flex-row justify-around bg-zinc-800 p-12 rounded '>
+        {" "}
+        <img src={Data.url} alt='/' className='h-[50vh] md:h-[60vh] lg:h[70vh] w-[40vh] rounded mt-4 '/>
+       {isLoggedIn===true && role==="user" &&(
+         <div className='flex flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 '>
+         <button className='bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 text-red-500 mt-4 flex items-center justify-center'><FaHeart />{" "}<span className='ms-4 block lg:hidden '>Add to fav</span></button>
+         <button className='px-2 bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 mt-4 lg:mt-8 text-blue-500 flex items-center justify-center'><FaShoppingCart />{" "}<span className='ms-4 block lg:hidden '>Add to cart</span></button>
+     </div>
+       )}
+        {isLoggedIn===true && role==="admin" &&(
+         <div className='flex flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 '>
+         <button className='bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 text-red-500 mt-4 flex items-center justify-center'><FaEdit />{" "}<span className='ms-4 block lg:hidden '>Edit</span></button>
+         <button className='px-2 bg-red-500 rounded lg:rounded-full text-xl lg:text-2xl p-3 mt-4 lg:mt-8 text-white flex items-center justify-center'><MdDeleteOutline />{" "}<span className='ms-4 block lg:hidden '>Delete</span></button>
+     </div>
+       )}
         </div>
         </div>
         <div className='p-4 w-full lg:w-3/6 mt-10'>
