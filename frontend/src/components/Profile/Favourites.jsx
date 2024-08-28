@@ -1,9 +1,22 @@
 import React from 'react'
+import { useEffect } from 'react'
+import axios from 'axios';
 
 const Favourites = () => {
-  return (
-    <div>Favourites</div>
-  )
-}
+  const headers={
+    id:localStorage.getItem("id"),
+    authorization:`Bearer ${localStorage.getItem("token")}`,
+  };
+  useEffect(()=>{
+    const fetch=async()=>{
+      const response=await axios.get("http://localhost:1000/api/v1//get-fav-books",{headers});
+      console.log(response.data.data);
+    };
+    fetch();
+    
+  },[]);
+  return <div>Favourites</div>
+  
+};
 
-export default Favourites
+export default Favourites;
