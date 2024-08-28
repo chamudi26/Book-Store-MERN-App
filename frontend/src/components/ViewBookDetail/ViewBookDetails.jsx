@@ -26,25 +26,41 @@ const ViewDataDetails = () => {
       };
       fetch();
   },[ ]);
+  const headers={
+    id:localStorage.getItem("id"),
+    authorization:`Bearer ${localStorage.getItem("token")}`,
+    bookid:id,
+  };
+  
+  const handleFavourite=async()=>{
+    const response=await axios.put("http://localhost:1000/api/v1/add-book-to-fav",{},{headers});
+   alert(response.data.message);
+  };
+  const handleCart=async()=>{
+    const response=await axios.put("http://localhost:1000/api/v1/add-to-cart",{},{headers});
+    alert(response.data.message);
+  };
+
   return (
    <>
     {Data && (<div className='px-4 md:px-8 py-8 bg-zinc-900 flex gap-8 flex flex-col lg:flex-row gap-8 items-start'>
         <div className='px-6  w-full lg:w-3/6 '>
         {" "}
         
-        <div className='flex flex-col lg:flex-row justify-around bg-zinc-800 p-12 rounded '>
+        <div className='flex flex-col md:flex-row lg:flex-row  justify-around bg-zinc-800 p-12 rounded '>
         {" "}
         <img src={Data.url} alt='/' className='h-[50vh] md:h-[60vh] lg:h[70vh] w-[40vh] rounded mt-4 '/>
        {isLoggedIn===true && role==="user" &&(
-         <div className='flex flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 '>
-         <button className='bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 text-red-500 mt-4 flex items-center justify-center'><FaHeart />{" "}<span className='ms-4 block lg:hidden '>Add to fav</span></button>
-         <button className='px-2 bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 mt-4 lg:mt-8 text-blue-500 flex items-center justify-center'><FaShoppingCart />{" "}<span className='ms-4 block lg:hidden '>Add to cart</span></button>
+         <div className='flex flex-col md:flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 '>
+         <button className='bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 text-red-500 mt-4 flex items-center justify-center' onClick={handleFavourite}><FaHeart />{" "}<span className='ms-4 block lg:hidden '>Add to fav</span></button>
+         <button className='bg-white rounded mt-8 md:mt-0 lg:rounded-full text-xl lg:text-2xl p-3  lg:mt-8 text-blue-500 flex items-center justify-center' onClick={handleCart}>
+            <FaShoppingCart />{" "}<span className='ms-4 block lg:hidden '>Add to cart</span></button>
      </div>
        )}
         {isLoggedIn===true && role==="admin" &&(
-         <div className='flex flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 '>
+         <div className='flex flex-col md:flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0 '>
          <button className='bg-white rounded lg:rounded-full text-xl lg:text-2xl p-3 text-red-500 mt-4 flex items-center justify-center'><FaEdit />{" "}<span className='ms-4 block lg:hidden '>Edit</span></button>
-         <button className='px-2 bg-red-500 rounded lg:rounded-full text-xl lg:text-2xl p-3 mt-4 lg:mt-8 text-white flex items-center justify-center'><MdDeleteOutline />{" "}<span className='ms-4 block lg:hidden '>Delete</span></button>
+         <button className='px-2 bg-red-500 rounded lg:rounded-full text-xl lg:text-2xl p-3 mt-8 md:mt-0 lg:mt-8 text-white flex items-center justify-center'><MdDeleteOutline />{" "}<span className='ms-4 block lg:hidden '>Delete</span></button>
      </div>
        )}
         </div>
