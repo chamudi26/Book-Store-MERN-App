@@ -17,7 +17,7 @@ router.post("/place-order",authenticateToken,async(req,res)=>{
             const orderDataFromDb=await newOrder.save();
 
             //saving order in user model
-            await User.findByIdAndUpdate(id,{
+            await User.findByIdAndUpdate(id, {
                 $push:{orders:orderDataFromDb._id},
             });
             //clearing cart
@@ -29,7 +29,7 @@ router.post("/place-order",authenticateToken,async(req,res)=>{
             status:"success",
             message:"order placed success",
         });
-    }   catch(error){
+       }catch(error){
             console.log(error);
             return res.status(500).json({message:"an error occurred"});
         }
