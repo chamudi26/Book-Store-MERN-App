@@ -58,7 +58,9 @@ const Cart = () => {
 
   return (
   <div className='bg-zinc-900 px-12 h-screen py-8'>
-  {!Cart && <div className='w-full h-[100%] flex items-center justify-center'><Loader/></div>}
+  {!Cart && (
+    <div className='w-full h-[100%] flex items-center justify-center'><Loader/></div>
+  )}
   {Cart && Cart.length === 0 && (
     <div className='h-screen'>
       <div className='h-[100%] flex items-center justify-center flex-col bg-zinc-700'>
