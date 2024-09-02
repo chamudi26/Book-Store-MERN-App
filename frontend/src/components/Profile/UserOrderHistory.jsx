@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Loader from "../Loader/Loader";
+import {Link} from "react-router-dom";
 
 const UserOrderHistory = () => {
   const[orderHistory,setOrderHistory]= useState();
@@ -38,7 +39,7 @@ const UserOrderHistory = () => {
         </h1>
         <div className='mt-4 bg-zinc-800 w-full rounded py-2 px-4 flex gap-2'>
           <div className='w-[3%]'>
-            <h1 className='text-center'>Sr .</h1>
+            <h1 className='text-center'>No.</h1>
           </div>
           <div className='w-[22%]'>
             <h1 className=''>Books</h1>
@@ -62,9 +63,9 @@ const UserOrderHistory = () => {
               <h1 className='text-center'>{i+1}</h1>
             </div>
             <div className='w-[22%]'>
-              <link
+              <Link
               to={`/view-book-details/${items.book._id}`}
-              className='hover:text-blue-300'>{items.book.title}</link>
+              className='hover:text-blue-300'>{items.book.title}</Link>
             </div>
             <div className='w-[45%]'>
               <h1 className=''>{items.book.desc.slice(0,50)}...</h1>
@@ -83,7 +84,11 @@ const UserOrderHistory = () => {
                 )}
                 </h1>
             </div>
-          </div>
+            <div className='w-none md:w-[5%] hidden md:block'>
+              <h1 className='text-sm text-zinc-400'>COD</h1>
+            </div>
+
+          </div >
         ))}
       </div>
     )}
