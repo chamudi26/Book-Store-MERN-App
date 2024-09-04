@@ -14,9 +14,12 @@ import { authActions } from './store/auth';
 import Favourites from './components/Profile/Favourites';
 import UserOrderHistory from './components/Profile/UserOrderHistory';
 import Settings from './components/Profile/Settings';
+import AllOrders from './pages/AllOrders';
+import AddBook from './pages/AddBook';
+import UpdateBook from './pages/UpdateBook';
 const App = () => {
   const dispatch=useDispatch();
- // const role=useSelector((state)=>state.auth.role);
+ const role=useSelector((state)=>state.auth.role);
   useEffect(()=>{
     if(
       localStorage.getItem("id") &&
@@ -35,10 +38,16 @@ const App = () => {
           <Route exact path='/' element={ <Home/>}/>
           <Route  path='/all-books' element={ <Allbooks/>}/>
           <Route  path='/LogIn' element={ <LogIn/>}/>
+          <Route  path='/updateBook/:id' element={ <UpdateBook/>}/>
           <Route  path='/SignUp' element={ <Signup/>}/>
           <Route  path='/Cart' element={ <Cart/>}/>
           <Route  path='/profile' element={ <Profile/>}>
-          <Route index element={<Favourites/>}/>
+          {role==="user" ? (
+            <Route index element={<Favourites/>}/>
+          ):(
+          <Route index element={<AllOrders/>}/>
+        )}
+        {role == "admin" && <Route path="/profile/add-book" element={<AddBook/>}/>}
           <Route path="/profile/orderHistory" element={<UserOrderHistory/>}/>
           <Route path="/profile/settings" element={<Settings/>}/>
           </Route>

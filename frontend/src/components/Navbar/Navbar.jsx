@@ -9,10 +9,7 @@ const Navbar = () => {
       title:"HOME",
       link:"/",
     },
-    {
-      title:"ABOUT US",
-      link:"/about-us",
-    },
+   
     {
       title:"ALL BOOKS",
       link:"/all-books",
@@ -25,12 +22,23 @@ const Navbar = () => {
       title:"PROFILE",
       link:"/profile",
     },
+    {
+      title:"ADMIN PROFILE",
+      link:"/profile",
+    },
   ];
   const isLoggedIn=useSelector((state)=>state.auth.isLoggedIn);
+  const role=useSelector((state)=>state.auth.role);
   
   if(isLoggedIn===false){
     links.splice(2,3);
 
+  }
+  if(isLoggedIn==true && role==="user"){
+    links.splice(4,1);
+  }
+  if(isLoggedIn==true && role==="admin"){
+    links.splice(3,1);
   }
   const[MobileNav,setMobileNav]=useState("hidden"); 
   return (
@@ -44,7 +52,8 @@ const Navbar = () => {
         <div className='hidden md:flex gap-6'>
           {links.map((items,i)=>(
             <div className='flex items-center '>
-            {items.title === "PROFILE" ? (
+            {items.title === "PROFILE" || 
+            items.title === "ADMIN PROFILE" ? (
               <Link  
               to={items.link}
               className='px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300'

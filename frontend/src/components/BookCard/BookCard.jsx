@@ -18,12 +18,12 @@ const BookCard = ({data,favourite}) => {
   };
     
   return (
-    <div className='bg-zinc-800 rounded p-4 flex flex-col'>
+    <div className='bg-zinc-800  rounded p-4 flex flex-col'>
    <Link to ={`/view-book-details/${data._id}`}>
    
    <div className='bg-zinc-800 rounded border border-yellow-100 p-2 flex flex-col '>
      <div className='bg-zinc-900 rounded flex items-center justify-center'>
-      <img src={data.url} alt='/' className='h-[28vh]'/>
+      <img src={data.url} alt='/' className='h-[25vh] '/>
      </div>
      <h2 className='mt-4 text-xl text-zinc-200 font-semibold'>{data.title}</h2>
      <p className='mt-2 text-zinc-400 font-semibold '>by {data.author}</p>

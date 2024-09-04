@@ -26,7 +26,7 @@ const Favourites = () => {
       <p >No favourite Books</p>
       </div>)}
       
-      <div className='grid grid-cols-4 gap-4'>
+      <div className='grid lg:grid-cols-4 gap-4 my-4 px-4'>
         {FavouriteBooks && FavouriteBooks.map((items,i)=>(
         <div key={i}>
         <BookCard data={items} favourite={true}/>
